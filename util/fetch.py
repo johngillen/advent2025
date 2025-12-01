@@ -16,6 +16,7 @@ if len(argv) == 3:
 # firefox: ctrl+shift+i, storage, cookies, copy value of session
 
 cookie = open('util/cookie.txt', 'r').readline().strip()
+contact = open('util/contact.txt', 'r').readline().strip()
 finput = open(f'input/day{day:0>2}.txt', 'w+')
 ftest = open(f'test/day{day:0>2}.txt', 'w+')
 
@@ -36,7 +37,7 @@ else:
 if finput.read() == '':
     print('fetching input...')
     input = f'https://adventofcode.com/{year}/day/{day}/input'
-    input = requests.get(input, cookies={'session': cookie}).text
+    input = requests.get(input, cookies={'session': cookie}, headers={'User-Agent': contact}).text
     throttle = True
 else:
     print('input found on disk. not fetching')
@@ -44,7 +45,7 @@ else:
 if ftest.read() == '':
     print('fetching test...')
     test = f'https://adventofcode.com/{year}/day/{day}'
-    test = requests.get(test, cookies={'session': cookie}).text
+    test = requests.get(test, cookies={'session': cookie}, headers={'User-Agent': contact}).text
     throttle = True
 else:
     print('test found on disk. not fetching')

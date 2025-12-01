@@ -14,9 +14,10 @@ def lines():
 def post(year, day, part, answer):
     import requests
     cookie = open('util/cookie.txt', 'r').readline().strip()
+    contact = open('util/contact.txt', 'r').readline().strip()
     url = f'https://adventofcode.com/{year}/day/{day}/answer'
     data = {'level': part, 'answer': answer}
-    response = requests.post(url, cookies={'session': cookie}, data=data)
+    response = requests.post(url, cookies={'session': cookie}, headers={'User-Agent': contact}, data=data)
     match response.text:
         case text if 'That\'s the right answer!' in text:
             print('+1 star')
