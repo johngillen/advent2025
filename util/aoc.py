@@ -3,6 +3,14 @@ import re
 ints = lambda s: list(map(int, re.findall(r"-?\d+", s)))
 uints = lambda s: list(map(int, re.findall(r"\d+", s)))
 
+def lines():
+    from datetime import datetime, timezone, timedelta
+    year, day = datetime.now(timezone(timedelta(hours=-5))).year, \
+                datetime.now(timezone(timedelta(hours=-5))).day
+    
+    f = open(f'input/day{day:0>2}.txt')
+    return [line.rstrip() for line in f.readlines()]
+
 def post(year, day, part, answer):
     import requests
     cookie = open('util/cookie.txt', 'r').readline().strip()
