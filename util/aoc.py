@@ -1,0 +1,24 @@
+import re
+
+ints = lambda s: list(map(int, re.findall(r"-?\d+", s)))
+uints = lambda s: list(map(int, re.findall(r"\d+", s)))
+
+def post(year, day, part, answer):
+    import requests
+    cookie = open('util/cookie.txt', 'r').readline().strip()
+    url = f'https://adventofcode.com/{year}/day/{day}/answer'
+    data = {'level': part, 'answer': answer}
+    response = requests.post(url, cookies={'session': cookie}, data=data)
+    match response.text:
+        case text if 'That\'s the right answer!' in text:
+            print('+1 star')
+        case text if 'too high' in text:
+            print('too high')
+        case text if 'too low' in text:
+            print('too low')
+        case text if 'That\'s not the right answer' in text:
+            print('wrong answer')
+        case text if 'You gave an answer too recently' in text:
+            print('too soon')
+        case _:
+            print('unknown response')
