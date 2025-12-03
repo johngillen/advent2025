@@ -2,6 +2,7 @@ import re
 
 ints = lambda s: list(map(int, re.findall(r"-?\d+", s)))
 uints = lambda s: list(map(int, re.findall(r"\d+", s)))
+digits = lambda s: list(map(int, re.findall(r"\d", s)))
 
 def lines(dir = 'input'):
     from datetime import datetime, timezone, timedelta
