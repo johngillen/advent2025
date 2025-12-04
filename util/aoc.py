@@ -4,6 +4,11 @@ ints = lambda s: list(map(int, re.findall(r"-?\d+", s)))
 uints = lambda s: list(map(int, re.findall(r"\d+", s)))
 digits = lambda s: list(map(int, re.findall(r"\d", s)))
 
+valid = lambda node, grid: 0 <= node[0] < len(grid) and 0 <= node[1] < len(grid[0])
+
+COMPASS4 = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+COMPASS8 = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
+
 def lines(dir = 'input'):
     from datetime import datetime, timezone, timedelta
     year, day = datetime.now(timezone(timedelta(hours=-5))).year, \
@@ -11,6 +16,9 @@ def lines(dir = 'input'):
     
     f = open(f'{dir}/day{day:0>2}.txt')
     return [line.rstrip() for line in f.readlines()]
+
+def grid(dir = 'input'):
+    return [list(line) for line in lines(dir)]
 
 def post(year, day, part, answer):
     import requests
@@ -31,4 +39,4 @@ def post(year, day, part, answer):
         case text if 'You gave an answer too recently' in text:
             print('too soon')
         case _:
-            print('unknown response')
+            print('unknown response. star already given?')
