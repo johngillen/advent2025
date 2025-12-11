@@ -9,13 +9,13 @@ valid = lambda node, grid: 0 <= node[0] < len(grid) and 0 <= node[1] < len(grid[
 COMPASS4 = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 COMPASS8 = [(0, 1), (1, 1), (1, 0), (1, -1), (0, -1), (-1, -1), (-1, 0), (-1, 1)]
 
-def lines(dir = 'input'):
-    from datetime import datetime, timezone, timedelta
-    year, day = datetime.now(timezone(timedelta(hours=-5))).year, \
-                datetime.now(timezone(timedelta(hours=-5))).day
-    
-    f = open(f'{dir}/day{day:0>2}.txt')
-    return [line.rstrip() for line in f.readlines()]
+def lines(path = None):
+    if not path:
+        from datetime import datetime, timezone, timedelta
+        year, day = datetime.now(timezone(timedelta(hours=-5))).year, \
+                    datetime.now(timezone(timedelta(hours=-5))).day
+        path = f'input/day{day:0>2}.txt'
+    return [line.rstrip() for line in open(path).readlines()]
 
 def grid(dir = 'input'):
     return [list(line) for line in lines(dir)]
